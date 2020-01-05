@@ -1,0 +1,23 @@
+{
+  "tabbars" : [
+    {
+      
+      "title": "首页",
+      "key": 1,
+      "icon": "icon-ind",
+      "path": "/home"
+    },
+    {
+      "title": "找房",
+      "key": 2,
+      "icon": "icon-findHouse",
+      "path": "/home/list"
+    },
+    {
+      "title": "我的",
+      "key": 3,
+      "icon": "icon-my",
+      "path": "/home/profile"
+    }
+  ]
+}

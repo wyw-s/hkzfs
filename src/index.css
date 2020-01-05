@@ -10,9 +10,10 @@ body {
     box-sizing: border-box;
 }
 
-/* .App {
+#root,
+.App {
     height: 100%;
-} */
+}
 
 p {
     margin: 0;
