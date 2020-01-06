@@ -5,6 +5,8 @@ import FilterPicker from '../FilterPicker'
 // import FilterMore from '../FilterMore'
 
 import styles from './index.module.css'
+import {getHousesCondition} from './api'
+import {getLocalCity} from '../../../../utils/localStorage'
 
 // 标题高亮状态
 const titleSelectedStatus = {
@@ -16,8 +18,12 @@ const titleSelectedStatus = {
 
 export default class Filter extends Component {
   state = {
+    //点击高亮
     titleSelectedStatus,
-    openType: ''
+    // 控制组件显示与隐藏
+    openType: '',
+    // 房屋查询条件
+    HousesCondition: {}
   }
 
   // 点击高亮
@@ -43,6 +49,23 @@ export default class Filter extends Component {
     })
   }
 
+  // 获取房屋查询条件(需要提供当前城市id)
+  loadHousesCondition = async () => {
+    // 获取当前城市信息
+    const { value } = getLocalCity('hkzf_curr_Iofo')
+    // 获取查询条件
+    const { data } = await getHousesCondition(value)
+    console.log(data);
+    this.setState(()=> {
+      return {
+        HousesCondition: data.body
+      }
+    })
+  }
+
+  componentDidMount() {
+    this.loadHousesCondition()
+  }
   render() {
     const { openType, titleSelectedStatus } = this.state
     return (
