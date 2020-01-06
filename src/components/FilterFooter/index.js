@@ -5,14 +5,20 @@ import PropTypes from 'prop-types'
 
 import styles from './index.module.css'
 
-function FilterFooter({ className, style }) {
+function FilterFooter({ className, style, onCancel, onSave }) {
   return (
     <Flex style={style} className={[styles.root, className || ''].join(' ')}>
       {/* 取消按钮 */}
-      <span className={[styles.btn, styles.cancel].join(' ')}>取消</span>
+      <span
+        className={[styles.btn, styles.cancel].join(' ')}
+        onClick={() => { onCancel() }}
+      >取消</span>
 
       {/* 确定按钮 */}
-      <span className={[styles.btn, styles.ok].join(' ')}>确定</span>
+      <span
+        className={[styles.btn, styles.ok].join(' ')}
+        onClick={() => { onSave() }}
+      >确定</span>
     </Flex>
   )
 }
