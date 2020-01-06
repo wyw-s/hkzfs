@@ -4,6 +4,7 @@ import { PickerView } from 'antd-mobile'
 
 import FilterFooter from '../../../../components/FilterFooter'
 
+// 假数据
 const province = [
   {
     label: '北京',
@@ -89,11 +90,12 @@ const province = [
 
 export default class FilterPicker extends Component {
   render() {
-    const { onCancel, onSave } = this.props
+    const { onCancel, onSave, data, col } = this.props
+    console.log(col);
     return (
       <>
         {/* 选择器组件： */}
-        <PickerView data={province} value={null} cols={3} />
+        <PickerView data={data} value={null} cols={col} />
 
         {/* 底部按钮 */}
         <FilterFooter onCancel={onCancel} onSave={onSave}/>
