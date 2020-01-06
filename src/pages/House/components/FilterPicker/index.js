@@ -88,21 +88,22 @@ const province = [
   }
 ]
 
+
 export default class FilterPicker extends Component {
   state = {
-    value: ''
+    value: this.props.defaultValue
   }
 
   // 获取选中值
   onChange = (value) => {
-    console.log(value);
     this.setState({
       value,
     });
   }
 
   render() {
-    const { onCancel, onSave, data, col } = this.props
+    const { onCancel, onSave, data, col, openType } = this.props
+    const {value} = this.state
     return (
       <>
         {/* 选择器组件： */}
@@ -114,7 +115,13 @@ export default class FilterPicker extends Component {
         />
 
         {/* 底部按钮 */}
-        <FilterFooter onCancel={onCancel} onSave={onSave} />
+        <FilterFooter
+          onCancel={onCancel}
+          onSave={()=>{
+            onSave( openType, value)
+          }}
+          value={this.state.value}
+        />
       </>
     )
   }

@@ -16,6 +16,13 @@ const titleSelectedStatus = {
   more: false
 }
 
+const selectedValues = {
+  area: ['area', 'null'],
+  mode: ['null'],
+  price: ['null'],
+  more: []
+}
+
 export default class Filter extends Component {
   state = {
     //点击高亮
@@ -23,7 +30,9 @@ export default class Filter extends Component {
     // 控制组件显示与隐藏
     openType: '',
     // 房屋查询条件
-    HousesCondition: {}
+    HousesCondition: {},
+    //筛选条件默认值；
+    selectedValues
   }
 
   // 点击高亮
@@ -43,9 +52,10 @@ export default class Filter extends Component {
   }
 
   // 点击保存隐藏组件
-  onSave = () => {
+  onSave = (type, value) => {
     this.setState({
-      openType: ''
+      openType: '',
+      selectedValues: { ...this.state.selectedValues, [type]: value }
     })
   }
 
@@ -70,11 +80,13 @@ export default class Filter extends Component {
      * 所以要提供：openType(条件) ;HousesCondition(数据)
      */
     const {
-      openType, 
+      openType,
+      selectedValues,
       HousesCondition: { area, rentType, price, subway }
     } = this.state
     let data;
     let cols = 1
+    let defaultValue = selectedValues[openType]
     // 判断当前的条件，并提供不同的数据，因为点击的筛选条件不应该有数据；
     if (openType === 'area' || openType === 'mode' || openType === 'price') {
       // 判断条件并赋值；
@@ -94,6 +106,8 @@ export default class Filter extends Component {
       }
       return (
         <FilterPicker
+          defaultValue={defaultValue}
+          openType={openType}
           data={data}
           col={cols}
           onSave={this.onSave}
