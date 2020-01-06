@@ -15,8 +15,12 @@ const titleList = [
   { title: '租金', type: 'price' },
   { title: '筛选', type: 'more' }
 ]
-
-export default function FilterTitle() {
+/**
+ * 选中的当前项高亮，所以是数据驱动视图，所以应该是状态数据；
+ * 而函数组件没有state，所以需要找父组件；
+ */
+export default function FilterTitle(props) {
+  console.log(props);
   return (
     <Flex align="center" className={styles.root}>
       {
@@ -24,7 +28,11 @@ export default function FilterTitle() {
           return (
             <Flex.Item key={ item.type }>
               {/* 选中类名： selected */}
-              <span className={[styles.dropdown, styles.selected].join(' ')}>
+              <span className={[
+                styles.dropdown, 
+                props.titleSelectedStatus[item.type] ? 
+                styles.selected : ''
+                ].join(' ')}>
                 <span>{item.title}</span>
                 <i className="iconfont icon-arrow" />
               </span>
