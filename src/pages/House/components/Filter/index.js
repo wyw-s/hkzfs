@@ -105,7 +105,10 @@ export default class Filter extends Component {
           break
       }
       return (
+        // 当直接切换不同的title时,之前的默认选中值失效->是因为constructor只执行第一次
+        // 解决：添加一个唯一的key值；让constructor 重新执行
         <FilterPicker
+          key={openType}
           defaultValue={defaultValue}
           openType={openType}
           data={data}
