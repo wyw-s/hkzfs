@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import FilterTitle from '../FilterTitle'
-// import FilterPicker from '../FilterPicker'
+import FilterPicker from '../FilterPicker'
 // import FilterMore from '../FilterMore'
 
 import styles from './index.module.css'
@@ -16,31 +16,38 @@ const titleSelectedStatus = {
 
 export default class Filter extends Component {
   state = {
-    titleSelectedStatus
+    titleSelectedStatus,
+    openType: ''
   }
   // 点击高亮
   onTitleClick = type => {
     this.setState({
       // 对象展开和对象成员不重复的应用
-      titleSelectedStatus: { ...this.state.titleSelectedStatus, [type]: true }
+      titleSelectedStatus: { ...this.state.titleSelectedStatus, [type]: true },
+      openType: type
     })
   }
   render() {
+    const { openType, titleSelectedStatus } = this.state
     return (
       <div className={styles.root}>
         {/* 前三个菜单的遮罩层 */}
-        {/* <div className={styles.mask} /> */}
+        {openType === 'area' || openType === 'mode' || openType === 'price' ? (
+          <div className={styles.mask} />
+        ) : null}
 
         <div className={styles.content}>
           {/* 标题栏 */}
           <FilterTitle
-            titleSelectedStatus={this.state.titleSelectedStatus}
+            titleSelectedStatus={titleSelectedStatus}
             onTitleClick={this.onTitleClick}
           />
 
-          {/* 前三个菜单对应的内容： */}
-          {/* <FilterPicker /> */}
-
+          {openType === 'area' ||
+          openType === 'mode' ||
+          openType === 'price' ? (
+            <FilterPicker />
+          ) : null}
           {/* 最后一个菜单对应的内容： */}
           {/* <FilterMore /> */}
         </div>
