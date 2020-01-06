@@ -20,13 +20,17 @@ const titleList = [
  * 而函数组件没有state，所以需要找父组件；
  */
 export default function FilterTitle(props) {
-  console.log(props);
   return (
     <Flex align="center" className={styles.root}>
       {
         titleList.map(item => {
           return (
-            <Flex.Item key={ item.type }>
+            <Flex.Item 
+            key={ item.type }
+            onClick={() => {
+              props.onTitleClick(item.type)
+            }}
+            >
               {/* 选中类名： selected */}
               <span className={[
                 styles.dropdown, 
